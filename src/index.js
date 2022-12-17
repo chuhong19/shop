@@ -16,6 +16,14 @@ app.get('/news', (req, res) => {
   res.render('news');
 })
 
+app.get('/login', (req, res) => {
+  res.render('accounts/login');
+})
+
+app.get('/register', (req, res) => {
+  res.render('accounts/register');
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
