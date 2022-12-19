@@ -3,6 +3,11 @@ const path = require('path');
 const {engine} = require('express-handlebars');
 const app = express();
 const port = 3000;
+const route = require('./routes');
+route(app);
+const db = require('./config');
+
+db.connect();
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources\\views'));
