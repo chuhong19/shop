@@ -8,7 +8,7 @@ class AccountController {
     }
 
     create (req, res) {
-        res.render('account/register');
+        res.render('accounts/register');
     }
 
     store (req, res) {
