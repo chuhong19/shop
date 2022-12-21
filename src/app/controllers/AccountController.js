@@ -1,24 +1,40 @@
-//const Account = require('../models/Account');
+const Account = require('../models/Account');
 
 class AccountController {
 
     login (req, res, next) {
-        console.log('login successfully');
-        res.json('login success');
+        res.render('accounts/login');
     }
 
-    create (req, res) {
+    confirmLogin (req, res, next) {
+        const username = req.body.username;
+        const password = req.body.password;
+        Account.findOne({username, password})
+            .then(data => {
+                    if (data) {
+                        res.json('login success');
+                    }
+                    else {
+                        res.json('wrong username or password');
+                    }
+                })
+            .catch(next);
+    }
+
+    create (req, res, next) {
         res.render('accounts/register');
     }
 
-    store (req, res) {
-        res.json(req.body);
-        // const account = new Account(req.body);
-        // account.save()
-        //     .then(() => res.redirect('/'))
-        //     .catch(next); 
+    store (req, res, next) {
+        const account = new Account(req.body);
+        account.save()
+             .then(() => res.redirect('/home'))
+             .catch(next); 
     }
 
+    edit (req, res, next) {
+        res.render('accounts/edit');
+    }
 }
 
 module.exports = new AccountController();

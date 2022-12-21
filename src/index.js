@@ -4,8 +4,7 @@ const {engine} = require('express-handlebars');
 const app = express();
 const port = 3000;
 
-//const route = require('./routes');
-//route(app);
+const route = require('./routes');
 
 const db = require('./config');
 db.connect();
@@ -19,34 +18,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.render('home');
-})
-
-app.get('/search', (req, res) => {
-  res.render('search');
-})
-
-app.post('/search', (req, res) => {
-  res.json(req.body);
-})
-
-app.get('/login', (req, res) => {
-  res.render('accounts/login');
-})
-
-app.get('/register', (req, res) => {
-  res.render('accounts/register');
-})
-
-app.get('/account/create', (req, res) => {
-  res.render('account/register');
-})
-
-app.post('/account/store', (req, res) => {
-  res.json(req.body);
-})
-
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
