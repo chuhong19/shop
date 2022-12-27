@@ -3,6 +3,9 @@ const path = require('path');
 const {engine} = require('express-handlebars');
 const app = express();
 const port = 3000;
+const jwt = require('jsonwebtoken');
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 const route = require('./routes');
 
@@ -17,6 +20,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
+
 
 route(app);
 

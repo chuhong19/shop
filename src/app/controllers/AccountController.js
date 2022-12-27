@@ -1,4 +1,6 @@
 const Account = require('../models/Account');
+const { mongooseToObject } = require('../../util/mongoose');
+const jwt = require('jsonwebtoken');
 
 class AccountController {
 
@@ -12,7 +14,11 @@ class AccountController {
         Account.findOne({username, password})
             .then(data => {
                     if (data) {
-                        res.json('login success');
+                        var token = jwt.sign({_id: data._id}, 'mk');
+                        return res.json({
+                            message: 'login success',
+                            token: token
+                        });
                     }
                     else {
                         res.json('wrong username or password');
@@ -32,8 +38,33 @@ class AccountController {
              .catch(next); 
     }
 
+    // token 
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2ExNTBjY2YwMjc4MGE5MWI3MTY4MzEiLCJpYXQiOjE2NzIxMzMxMDR9.4b_mX1vP68pEqmcYv-yoszrj7O4U9pmXwpCGTYmzB5s
+
+    profile (req, res, next) {
+        var token = req.params.token;
+        var result = jwt.verify(token, 'mk');
+        if (!result) {
+            return res.json('login required');
+        }
+        else {
+            res.render('accounts/myhome');
+        }
+           
+    }
+
     edit (req, res, next) {
-        res.render('accounts/edit');
+        Account.findOne({username: req.params.username})
+            .then(account => res.render('accounts/edit', {
+                account: mongooseToObject(account)
+            }))
+            .catch(next);
+    }
+
+    update(req, res, next) {
+        Account.updateOne({ username: req.params.username }, req.body)
+            .then(res.json('update success'))
+            .catch(next);
     }
 }
 
