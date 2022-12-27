@@ -15,5 +15,9 @@ var code2 =
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ2lhYmFvIiwiaWF0IjoxNjcyMTE5MDkyfQ.1M8Z2GQIn16k2bX6DqvUciQPjVaYFuYf95gwYIsnp5M';
 var data_back = jwt.verify(code, secret);
 var data_back2 = jwt.verify(code2, secret2);
-console.log('data 1: ',data_back);
-console.log('data 2: ',data_back2);
+//console.log('data 1: ',data_back);
+//console.log('data 2: ',data_back2);
+
+var tokenshop = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2ExNTBjY2YwMjc4MGE5MWI3MTY4MzEiLCJpYXQiOjE2NzIxMzQyMTh9.QpEMn97vcYiC82cra3XtxUOXkMHz0GJHulLkxuZYoJY';
+var shop = jwt.verify(tokenshop, 'mk');
+console.log(shop);

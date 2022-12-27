@@ -48,9 +48,14 @@ class AccountController {
             return res.json('login required');
         }
         else {
-            res.render('accounts/myhome');
-        }
-           
+            var id = result._id;
+            Account.findOne({_id: id})
+                .then( account => {
+                    res.render('accounts/myhome', {account: mongooseToObject(account)})
+                })
+                .catch(next);
+            
+        } 
     }
 
     edit (req, res, next) {
