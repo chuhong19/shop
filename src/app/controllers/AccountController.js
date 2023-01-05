@@ -15,10 +15,8 @@ class AccountController {
             .then(data => {
                     if (data) {
                         var token = jwt.sign({_id: data._id}, 'mk');
-                        return res.json({
-                            message: 'login success',
-                            token: token
-                        });
+                        res.cookie('token', token);
+                        res.redirect('/private');
                     }
                     else {
                         res.json('wrong username or password');

@@ -14,6 +14,10 @@ class SiteController {
         res.render('accounts/register');
     }
 
+    private (req, res, next){
+        res.render('private');
+    }
+
 }
 
 module.exports = new SiteController();

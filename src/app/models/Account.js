@@ -10,6 +10,7 @@ const Account = new Schema({
     age: { type: String },
     address: { type: String },
     phone: { type: String },
+    role: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     deletedAt: {},
