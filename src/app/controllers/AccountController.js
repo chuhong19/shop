@@ -1,6 +1,7 @@
 const Account = require('../models/Account');
 const { mongooseToObject } = require('../../util/mongoose');
 const jwt = require('jsonwebtoken');
+const { reset } = require('nodemon');
 
 class AccountController {
 
@@ -19,7 +20,7 @@ class AccountController {
                         res.redirect('/private');
                     }
                     else {
-                        res.json('wrong username or password');
+                        res.json('Wrong username or password');
                     }
                 })
             .catch(next);
@@ -68,6 +69,11 @@ class AccountController {
         Account.updateOne({ username: req.params.username }, req.body)
             .then(res.json('update success'))
             .catch(next);
+    }
+
+    logout(req, res, next) {
+        res.clearCookie('token');
+        res.redirect('/home');
     }
 }
 
